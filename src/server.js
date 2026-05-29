@@ -13,12 +13,7 @@ const { refreshAll } = require('./services/newsService');
 
 const app = express();
 
-const DEVELOPER = {
-  name: 'GridX Dev',
-  website: 'https://your-domain.com',
-  copyright: '© GridX Dev',
-  api: 'Sri Lanka News API',
-};
+const DEVELOPER = { name: 'GridX Dev' };
 
 app.use(cors());
 app.use(express.json());
