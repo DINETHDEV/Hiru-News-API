@@ -32,6 +32,7 @@ npm start
 npm run dev
 ```
 
+<<<<<<< HEAD
 ## Environment Variables
 
 | Variable | Default | Description |
@@ -41,6 +42,8 @@ npm run dev
 | `REFRESH_INTERVAL_MS` | `300000` | Cache refresh interval (ms) |
 | `RATE_LIMIT_MAX` | `60` | Max requests per minute per IP |
 
+=======
+>>>>>>> 4df347204714ca96b9f5d447a8e2e81db1ae40e2
 ## API Endpoints
 
 ### `GET /`
@@ -122,6 +125,3 @@ src/
 - Rate limiting (60 req/min per IP)
 - Structured logging via Winston
 
-## Lumi AI Integration
-
-Point Lumi AI at `http://localhost:3000/news` (or your deployed URL) to fetch all categories in one call, or use individual category endpoints for targeted queries.
