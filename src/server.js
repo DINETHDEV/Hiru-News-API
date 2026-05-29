@@ -13,6 +13,13 @@ const { refreshAll } = require('./services/newsService');
 
 const app = express();
 
+const DEVELOPER = {
+  name: 'GridX Dev',
+  website: 'https://your-domain.com',
+  copyright: '© GridX Dev',
+  api: 'Sri Lanka News API',
+};
+
 app.use(cors());
 app.use(express.json());
 app.use(rateLimit({
@@ -23,10 +30,12 @@ app.use(rateLimit({
   message: { success: false, message: 'Too many requests. Please slow down.' },
 }));
 
-// Global branding headers
+// Inject developer metadata + headers into every JSON response
 app.use((_req, res, next) => {
   res.setHeader('X-Developer', 'GridX Dev');
-  res.setHeader('X-Powered-By', 'Sri Lanka News API');
+  res.setHeader('X-API-Provider', 'GridX Dev');
+  const originalJson = res.json.bind(res);
+  res.json = (body) => originalJson({ ...body, developer: DEVELOPER });
   next();
 });
 
@@ -43,7 +52,6 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ success: false, message: 'Internal server error.' });
 });
 
-// Local dev only
 if (require.main === module) {
   if (!config.firecrawlApiKey) {
     logger.error('API_KEY is not set.');
@@ -53,8 +61,7 @@ if (require.main === module) {
     console.log('=================================');
     console.log('Sri Lanka News API');
     console.log('Developer: GridX Dev');
-    console.log('Version: 1.0.0');
-    console.log('==============');
+    console.log('====================');
     refreshAll();
     setInterval(refreshAll, config.refreshInterval);
   });

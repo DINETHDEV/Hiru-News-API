@@ -7,7 +7,6 @@ const { getNews, getAllNews, refreshAll, refreshCategory } = require('../service
 
 const router = Router();
 
-// Auto-fetch on cache miss (critical for Vercel serverless)
 async function respond(res, category) {
   let data = getNews(category);
   if (!data) {
@@ -26,24 +25,24 @@ async function respondAll(res) {
 }
 
 router.get('/', (_req, res) => res.json({
+  success: true,
   message: 'Welcome to Sri Lanka News API',
-  developer: 'GridX Dev',
   version: '1.0.0',
 }));
 
 router.get('/about', (_req, res) => res.json({
+  success: true,
   name: 'Sri Lanka News API',
   version: '1.0.0',
-  developer: 'GridX Dev',
   status: 'active',
 }));
 
-router.get('/news',               (req, res) => respondAll(res));
-router.get('/news/latest',        (req, res) => respond(res, 'latest'));
-router.get('/news/international', (req, res) => respond(res, 'international'));
-router.get('/news/sports',        (req, res) => respond(res, 'sports'));
-router.get('/news/business',      (req, res) => respond(res, 'business'));
-router.get('/news/entertainment', (req, res) => respond(res, 'entertainment'));
+router.get('/news',               (_req, res) => respondAll(res));
+router.get('/news/latest',        (_req, res) => respond(res, 'latest'));
+router.get('/news/international', (_req, res) => respond(res, 'international'));
+router.get('/news/sports',        (_req, res) => respond(res, 'sports'));
+router.get('/news/business',      (_req, res) => respond(res, 'business'));
+router.get('/news/entertainment', (_req, res) => respond(res, 'entertainment'));
 
 router.post('/news/refresh', async (_req, res) => {
   await refreshAll();
