@@ -29,8 +29,11 @@ app.use(rateLimit({
 app.use((_req, res, next) => {
   res.setHeader('X-Developer', 'GridX Dev');
   res.setHeader('X-API-Provider', 'GridX Dev');
-  const originalJson = res.json.bind(res);
-  res.json = (body) => originalJson({ ...body, developer: DEVELOPER });
+  const _json = res.json.bind(res);
+  res.json = function (body) {
+    res.json = _json; // restore before calling to prevent infinite loop
+    return _json({ ...body, developer: DEVELOPER });
+  };
   next();
 });
 
