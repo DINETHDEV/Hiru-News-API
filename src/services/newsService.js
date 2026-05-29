@@ -50,4 +50,4 @@ function startAutoRefresh() {
   logger.info(`Auto-refresh every ${config.refreshInterval / 1000}s`);
 }
 
-module.exports = { startAutoRefresh, getNews, getAllNews, refreshAll };
+module.exports = { startAutoRefresh, getNews, getAllNews, refreshAll, refreshCategory };

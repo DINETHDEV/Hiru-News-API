@@ -1,34 +1,40 @@
 const { Router } = require('express');
-const { getNews, getAllNews, refreshAll } = require('../services/newsService');
+const { getNews, getAllNews, refreshAll, refreshCategory } = require('../services/newsService');
 
 const router = Router();
 
-const respond = (res, data, category) => {
+// Auto-fetch on cache miss (critical for Vercel serverless)
+async function respond(res, category) {
+  let data = getNews(category);
   if (!data) {
-    return res.status(503).json({
-      success: false,
-      message: `News for "${category}" not yet available. Try again shortly.`,
-    });
+    await refreshCategory(category);
+    data = getNews(category);
   }
+  if (!data) return res.status(503).json({ success: false, message: `Could not fetch "${category}" news.` });
   res.json({ success: true, ...data });
-};
+}
 
-router.get('/', (req, res) => res.json({
+async function respondAll(res) {
+  let data = getAllNews();
+  const isEmpty = Object.values(data.categories).every(a => a.length === 0);
+  if (isEmpty) await refreshAll();
+  res.json({ success: true, ...getAllNews() });
+}
+
+router.get('/', (_req, res) => res.json({
   name: 'Sri Lanka News API',
   version: '1.0.0',
   endpoints: ['/news', '/news/latest', '/news/sports', '/news/business', '/news/international', '/news/entertainment'],
 }));
 
-router.get('/news', (req, res) => res.json({ success: true, ...getAllNews() }));
+router.get('/news',               (req, res) => respondAll(res));
+router.get('/news/latest',        (req, res) => respond(res, 'latest'));
+router.get('/news/international', (req, res) => respond(res, 'international'));
+router.get('/news/sports',        (req, res) => respond(res, 'sports'));
+router.get('/news/business',      (req, res) => respond(res, 'business'));
+router.get('/news/entertainment', (req, res) => respond(res, 'entertainment'));
 
-router.get('/news/latest',        (req, res) => respond(res, getNews('latest'),        'latest'));
-router.get('/news/international', (req, res) => respond(res, getNews('international'), 'international'));
-router.get('/news/sports',        (req, res) => respond(res, getNews('sports'),        'sports'));
-router.get('/news/business',      (req, res) => respond(res, getNews('business'),      'business'));
-router.get('/news/entertainment', (req, res) => respond(res, getNews('entertainment'), 'entertainment'));
-
-// Manual refresh (useful for dev/testing)
-router.post('/news/refresh', async (req, res) => {
+router.post('/news/refresh', async (_req, res) => {
   await refreshAll();
   res.json({ success: true, message: 'Refresh triggered.' });
 });
