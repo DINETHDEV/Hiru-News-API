@@ -2,6 +2,17 @@
 
 Live Sri Lanka news powered by [Firecrawl](https://firecrawl.dev), built for integration with **Lumi AI**.
 
+## 🌐 Live API
+
+| Category | URL |
+|---|---|
+| 📰 Latest News | https://hiru-news-ow4q995r5-no-bug-s-projects.vercel.app/news/latest |
+| 📰 All News | https://hiru-news-ow4q995r5-no-bug-s-projects.vercel.app/news |
+| 🏏 Sports | https://hiru-news-ow4q995r5-no-bug-s-projects.vercel.app/news/sports |
+| 💼 Business | https://hiru-news-ow4q995r5-no-bug-s-projects.vercel.app/news/business |
+| 🌍 International | https://hiru-news-ow4q995r5-no-bug-s-projects.vercel.app/news/international |
+| 🎬 Entertainment | https://hiru-news-ow4q995r5-no-bug-s-projects.vercel.app/news/entertainment |
+
 ## Quick Start
 
 ```bash
