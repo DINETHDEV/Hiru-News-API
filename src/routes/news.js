@@ -1,3 +1,7 @@
+// Sri Lanka News API
+// Developer: GridX Dev
+// Version: 1.0.0
+
 const { Router } = require('express');
 const { getNews, getAllNews, refreshAll, refreshCategory } = require('../services/newsService');
 
@@ -22,9 +26,16 @@ async function respondAll(res) {
 }
 
 router.get('/', (_req, res) => res.json({
+  message: 'Welcome to Sri Lanka News API',
+  developer: 'GridX Dev',
+  version: '1.0.0',
+}));
+
+router.get('/about', (_req, res) => res.json({
   name: 'Sri Lanka News API',
   version: '1.0.0',
-  endpoints: ['/news', '/news/latest', '/news/sports', '/news/business', '/news/international', '/news/entertainment'],
+  developer: 'GridX Dev',
+  status: 'active',
 }));
 
 router.get('/news',               (req, res) => respondAll(res));

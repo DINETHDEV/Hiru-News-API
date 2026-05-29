@@ -17,7 +17,7 @@ async function scrapeNews(url, category) {
       onlyMainContent: true,
     });
 
-    if (!result.success) throw new Error(`Firecrawl error: ${result.error}`);
+    if (!result.success) throw new Error(`Scrape error: ${result.error}`);
 
     return parseArticles(result.markdown, url, category);
   }, { attempts: 3, delayMs: 2000, label: `scrape:${category}` });

@@ -1,6 +1,8 @@
 # Sri Lanka News API
 
-Live Sri Lanka news powered by [Firecrawl](https://firecrawl.dev), built for integration with **Lumi AI**.
+Live Sri Lanka news, built for integration with **Lumi AI**.
+
+**Developer:** GridX Dev
 
 ## 🌐 Live API
 
@@ -34,7 +36,7 @@ npm run dev
 
 | Variable | Default | Description |
 |---|---|---|
-| `FIRECRAWL_API_KEY` | — | **Required.** Your Firecrawl API key |
+| `FIRECRAWL_API_KEY` | — | **Required.** Your scraper API key |
 | `PORT` | `3000` | Server port |
 | `REFRESH_INTERVAL_MS` | `300000` | Cache refresh interval (ms) |
 | `RATE_LIMIT_MAX` | `60` | Max requests per minute per IP |
@@ -101,7 +103,7 @@ src/
 ├── routes/
 │   └── news.js            # All route handlers
 ├── services/
-│   ├── scraper.js         # Firecrawl scraping + markdown parsing
+│   ├── scraper.js         # Web scraping + markdown parsing
 │   └── newsService.js     # Cache management + auto-refresh
 ├── cache/
 │   └── newsCache.js       # In-memory cache store
@@ -112,7 +114,7 @@ src/
 
 ## Features
 
-- Scrapes [hirunews.lk](https://www.hirunews.lk) via Firecrawl
+- Scrapes [hirunews.lk](https://www.hirunews.lk)
 - Auto-refreshes every 5 minutes (configurable)
 - In-memory cache — instant responses after first load
 - Retry logic with exponential backoff (3 attempts)

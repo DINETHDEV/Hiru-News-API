@@ -1,3 +1,7 @@
+// Sri Lanka News API
+// Developer: GridX Dev
+// Version: 1.0.0
+
 const config = require('../config');
 const cache = require('../cache/newsCache');
 const { scrapeNews } = require('./scraper');

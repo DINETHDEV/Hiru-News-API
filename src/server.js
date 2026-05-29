@@ -1,3 +1,7 @@
+// Sri Lanka News API
+// Developer: GridX Dev
+// Version: 1.0.0
+
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -19,6 +23,13 @@ app.use(rateLimit({
   message: { success: false, message: 'Too many requests. Please slow down.' },
 }));
 
+// Global branding headers
+app.use((_req, res, next) => {
+  res.setHeader('X-Developer', 'GridX Dev');
+  res.setHeader('X-Powered-By', 'Sri Lanka News API');
+  next();
+});
+
 app.use((req, _res, next) => {
   logger.info(`${req.method} ${req.path}`);
   next();
@@ -35,11 +46,15 @@ app.use((err, _req, res, _next) => {
 // Local dev only
 if (require.main === module) {
   if (!config.firecrawlApiKey) {
-    logger.error('FIRECRAWL_API_KEY is not set.');
+    logger.error('API_KEY is not set.');
     process.exit(1);
   }
   app.listen(config.port, () => {
-    logger.info(`Sri Lanka News API running on port ${config.port}`);
+    console.log('=================================');
+    console.log('Sri Lanka News API');
+    console.log('Developer: GridX Dev');
+    console.log('Version: 1.0.0');
+    console.log('==============');
     refreshAll();
     setInterval(refreshAll, config.refreshInterval);
   });
