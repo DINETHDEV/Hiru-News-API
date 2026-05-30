@@ -1,6 +1,5 @@
 # Sri Lanka News API
 
-Live Sri Lanka news powered by [Firecrawl](https://firecrawl.dev), built for integration with **Lumi AI**.
 
 ## 🌐 Live API
 
@@ -120,6 +119,3 @@ src/
 - Rate limiting (60 req/min per IP)
 - Structured logging via Winston
 
-## Lumi AI Integration
-
-Point Lumi AI at `http://localhost:3000/news` (or your deployed URL) to fetch all categories in one call, or use individual category endpoints for targeted queries.
