@@ -29,15 +29,6 @@ npm start
 npm run dev
 ```
 
-## Environment Variables
-
-| Variable | Default | Description |
-|---|---|---|
-| `FIRECRAWL_API_KEY` | — | **Required.** Your Firecrawl API key |
-| `PORT` | `3000` | Server port |
-| `REFRESH_INTERVAL_MS` | `300000` | Cache refresh interval (ms) |
-| `RATE_LIMIT_MAX` | `60` | Max requests per minute per IP |
-
 ## API Endpoints
 
 ### `GET /`
@@ -111,7 +102,7 @@ src/
 
 ## Features
 
-- Scrapes [hirunews.lk](https://www.hirunews.lk) via Firecrawl
+- Scrapes [hirunews.lk](https://www.hirunews.lk)
 - Auto-refreshes every 5 minutes (configurable)
 - In-memory cache — instant responses after first load
 - Retry logic with exponential backoff (3 attempts)
