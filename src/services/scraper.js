@@ -38,7 +38,12 @@ function parseArticles(markdown, baseUrl, category) {
   let match;
 
   while ((match = linkRegex.exec(markdown)) !== null) {
-    const title = match[1].trim();
+    const title = match[1]
+      .replace(/\*\*/g, '')       // remove bold markdown
+      .replace(/\*/g, '')         // remove italic markdown
+      .replace(/\\n/g, ' ')       // replace escaped newlines
+      .replace(/\s+/g, ' ')       // collapse whitespace
+      .trim();
     const url = match[2].trim();
 
     // Filter: must be a hirunews article link, skip duplicates/nav links
